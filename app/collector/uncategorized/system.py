@@ -15,7 +15,7 @@ class SystemCollector(BaseCollector):
     def __init__(self) -> None:
         super().__init__(
             name="System Information Collector",
-            description="",
+            description="Collect device and system information",
             category=CollectionCategory.UNCATEGORIZED,
             cmd_arg="--system",
         )
@@ -47,7 +47,7 @@ class SystemCollector(BaseCollector):
         return self.json_output
 
     @staticmethod
-    def user_is_admin() -> bool | RuntimeError:
+    def user_is_admin() -> bool:
         if os.name.lower() == "nt":
             try:
                 return bool(ctypes.windll.shell32.IsUserAnAdmin())
@@ -85,20 +85,3 @@ class SystemCollector(BaseCollector):
             except ValueError:
                 continue
         return items
-
-    """
-    Replaced queries (replaced with subprocess call to "systeminfo"):
-            boot_time_timestamp = psutil.boot_time()
-            bt = datetime.fromtimestamp(boot_time_timestamp)
-            "System": uname.system,
-            "Device": {
-                "Manufacturer": self.device.Manufacturer,
-                "Model": self.device.Model,
-                "System Type": self.device.SystemType,
-                "System Family": self.device.SystemFamily,
-            },
-            "Release": uname.release,
-            "Version": uname.version,
-            "Boot Time": f"{bt.year}/{bt.month}/{bt.day} {bt.hour}:{bt.minute}:{bt.second}",
-            "Platform": platform.platform(),
-    """

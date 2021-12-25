@@ -1,11 +1,11 @@
-from app.winscraper import SimpleDiner
+from app.winscraper import Diner
 
 if __name__ == "__main__":
-    if False:
-        sys = SimpleDiner.help()
+    if True:
+        Diner(network=True).print()
 
     else:
-        sysinfo = SimpleDiner(
+        sysinfo = Diner(
             network_interfaces=True,
             cpu_information=True,
             memory_information=True,

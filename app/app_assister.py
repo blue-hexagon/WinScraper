@@ -6,11 +6,6 @@ from datetime import datetime
 from typing import Any, Dict
 
 
-class StateKeeper:
-    DATA_DIR = "./trojan/data/"
-    REL_DIR_FILE_FORMAT = DATA_DIR + "%Y-%m-%d__%H-%M-%S--%f"
-
-
 class DateTimeFormatter:
     @staticmethod
     def current_dt() -> str:
@@ -37,14 +32,8 @@ class ByteUnitConverter:
             byte_count /= factor
 
 
-class JSONPrinter:
-    @staticmethod
-    def print_json(dictionary: Dict[Any, Any]) -> None:
-        print(json.dumps(dictionary, indent=2))
-
-
 class TextFileSaver:
-    BASE_DIR = r"../../data"
+    BASE_DIR = r"./data"
 
     @classmethod
     def save_as_text(cls, dictionary: Dict[Any, Any]) -> None:

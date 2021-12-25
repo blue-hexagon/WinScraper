@@ -9,7 +9,10 @@ from app.collector.collection_category import CollectionCategory
 class PIDCollector(BaseCollector):
     def __init__(self) -> None:
         super().__init__(
-            name="Process ID Collector", description="...", category=CollectionCategory.PROCESS, cmd_arg="--pid"
+            name="Process ID Collector",
+            description="Collects all process names and IDs",
+            category=CollectionCategory.PROCESS,
+            cmd_arg="--pid",
         )
 
     def collect(self) -> Dict[Any, Any]:

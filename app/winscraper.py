@@ -1,5 +1,5 @@
 import json
-from typing import Any, Dict, List
+from typing import Any, List
 
 from app.app_assister import TextFileSaver
 from app.collector.collection_category import CollectionCategory
@@ -14,58 +14,57 @@ from app.collector.software.startup_software import StartupProgramsCollector
 from app.collector.uncategorized.system import SystemCollector
 
 
-class SimpleDiner:
-    all_modules = [
-        SystemCollector(),
-        CPUCollector(),
-        MemoryCollector(),
-        DiskCollector(),
-        NetworkInterfaceCollector(),
-        LANPasswordLister(),
-        StartupProgramsCollector(),
-        SoftwareRegeditLister(),
-        PIDCollector(),
-    ]
+class Diner:
+    all_modules = {
+        "system": SystemCollector(),
+        "cpu": CPUCollector(),
+        "ram": MemoryCollector(),
+        "disk": DiskCollector(),
+        "network": NetworkInterfaceCollector(),
+        "ssid": LANPasswordLister(),
+        "startup_software": StartupProgramsCollector(),
+        "installed_software": SoftwareRegeditLister(),
+        "pid": PIDCollector(),
+    }
 
     def __init__(
         self,
-        collect_everything: bool = False,
-        system_information: bool = False,
-        running_processes: bool = False,
-        cpu_information: bool = False,
-        disk_information: bool = False,
-        memory_information: bool = False,
-        network_interfaces: bool = False,
-        get_startup_programs: bool = False,
-        ssid_password_lister: bool = False,
+        all: bool = False,
+        system: bool = False,
+        pid: bool = False,
+        cpu: bool = False,
+        disk: bool = False,
+        ram: bool = False,
+        network: bool = False,
+        startup_software: bool = False,
+        ssid: bool = False,
         installed_software: bool = False,
     ) -> None:
 
-        self.collection = []
-        bucket: List[Any] = []
-        self.collectors: Dict[Any, Any] = {}
-        if system_information or collect_everything:
-            bucket.append(SystemCollector())
-        if cpu_information or collect_everything:
-            bucket.append(CPUCollector())
-        if memory_information or collect_everything:
-            bucket.append(MemoryCollector())
-        if disk_information or collect_everything:
-            bucket.append(DiskCollector())
-        if network_interfaces or collect_everything:
-            bucket.append(NetworkInterfaceCollector())
-        if ssid_password_lister or collect_everything:
-            bucket.append(LANPasswordLister())
-        if get_startup_programs or collect_everything:
-            bucket.append(StartupProgramsCollector())
-        if running_processes or collect_everything:
-            bucket.append(PIDCollector())
-        if installed_software or collect_everything:
-            bucket.append(SoftwareRegeditLister())
-        if len(bucket) == 0:
+        self.bucket: List[Any] = []
+        if system or all:
+            self.bucket.append(Diner.all_modules["system"])
+        if cpu or all:
+            self.bucket.append(Diner.all_modules["cpu"])
+        if ram or all:
+            self.bucket.append(Diner.all_modules["ram"])
+        if disk or all:
+            self.bucket.append(Diner.all_modules["disk"])
+        if network or all:
+            self.bucket.append(Diner.all_modules["network"])
+        if ssid or all:
+            self.bucket.append(Diner.all_modules["ssid"])
+        if startup_software or all:
+            self.bucket.append(Diner.all_modules["startup_software"])
+        if pid or all:
+            self.bucket.append(Diner.all_modules["pid"])
+        if installed_software or all:
+            self.bucket.append(Diner.all_modules["installed_software"])
+        if len(self.bucket) == 0:
             raise KeyError("No collector selected. You must set at least one named parameter to True.")
 
-        for collector in bucket:
+        self.collection = []
+        for collector in self.bucket:
             self.collection.append(collector.collect())
 
     def save(self) -> None:
@@ -86,8 +85,10 @@ class SimpleDiner:
             print(
                 f"{str(idx) + '.':<{id_field_len}} {category[0]:<{name_field_len}}{category[1]:<{cmd_field_len}}{category[2]}"
             )  # noqa
-            for idy, module in enumerate(cls.all_modules, start=1):  # TODO: O^2
+            idy = 0  # For some reason enumerate doesn't reset it's (idy) counter when finishing the loop and starting over, so we do it the old way
+            for module in cls.all_modules.values():  # TODO: O^2
                 if module.category[0] == category[0]:
+                    idy += 1
                     print(
                         f"{str(idx) + '.' + str(idy):<{id_field_len}} {module.name:<{name_field_len}}{module.cmd_arg:<{cmd_field_len}}{module.description}"
                     )

@@ -10,7 +10,7 @@ class StartupProgramsCollector(BaseCollector):
     def __init__(self) -> None:
         super().__init__(
             name="Startup Software Collector",
-            description="...",
+            description="Scan the windows registry for software which is executed at startup",
             category=CollectionCategory.SOFTWARE,
             cmd_arg="--startup-software",
         )

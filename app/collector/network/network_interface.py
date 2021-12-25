@@ -10,7 +10,10 @@ from app.collector.collection_category import CollectionCategory
 class NetworkInterfaceCollector(BaseCollector):
     def __init__(self) -> None:
         super().__init__(
-            name="Network Interface Collector", description="...", category=CollectionCategory.NETWORK, cmd_arg="--net"
+            name="Network Interface Collector",
+            description="Collects information about the devices network adapters, assigned IP addresses, MAC addresses and more",
+            category=CollectionCategory.NETWORK,
+            cmd_arg="--net",
         )
 
     def collect(self) -> Dict[Any, Any]:
@@ -39,13 +42,16 @@ class NetworkInterfaceCollector(BaseCollector):
                     try:
                         if_dict_enumerator[interface_name].update(
                             {
-                                # TODO: This returns multiple type of IPv6 address. Perhaps it could be improved to discern between LLAs, Loopback etc.
-                                "IPv6 Address": address.address,
+                                "Link-Local IPv6 Address"
+                                if address.address.startswith("fe80")
+                                else "IPv6 Address": address.address,
                             }
                         )
                     except KeyError:
                         if_dict_enumerator[interface_name] = {
-                            "IPv6 Address": address.address,
+                            "Link-Local Address"
+                            if address.address.startswith("fe80")
+                            else "IPv6 Address": address.address,
                         }
                 elif str(address.family) == "AddressFamily.AF_LINK":
                     try:

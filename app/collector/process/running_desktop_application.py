@@ -8,7 +8,7 @@ class RunningDesktopApplicationCollector(BaseCollector):
     def __init__(self) -> None:
         super().__init__(
             name="Running Desktop Application Collector",
-            description="...",
+            description="Collect the users opened application window titles",
             category=CollectionCategory.PROCESS,
             cmd_arg="--running-windows",
         )

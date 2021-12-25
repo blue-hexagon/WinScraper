@@ -9,7 +9,7 @@ class SoftwareRegeditLister(BaseCollector):
     def __init__(self) -> None:
         super().__init__(
             name="Installed Software Collector",
-            description="...",
+            description="Scan the windows registry for installed software",
             category=CollectionCategory.SOFTWARE,
             cmd_arg="--installed-software",
         )
