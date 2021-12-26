@@ -2,18 +2,12 @@ import platform
 import subprocess
 from typing import Any, Dict
 
-from app.collector.base_collector import BaseCollector
-from app.collector.collection_category import CollectionCategory
+from app.collector.base_objs import BaseCollector
 
 
-class LANPasswordLister(BaseCollector):
+class SsidCollector(BaseCollector):
     def __init__(self) -> None:
-        super().__init__(
-            name="SSID Collector",
-            description="Collects saved SSID and their associated passwords if such exists",
-            category=CollectionCategory.NETWORK,
-            cmd_arg="--ssid",
-        )
+        super().__init__()
 
     def collect(self) -> Dict[Any, Any]:
         if not platform.uname().system.lower() == "windows":

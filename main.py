@@ -1,19 +1,7 @@
-from app.winscraper import Diner
+from app.help_view import HelpView
+from app.winscraper import WinScraper
 
 if __name__ == "__main__":
-    if True:
-        Diner(network=True).print()
-
-    else:
-        sysinfo = Diner(
-            network_interfaces=True,
-            cpu_information=True,
-            memory_information=True,
-            disk_information=True,
-            system_information=True,
-            ssid_password_lister=True,
-            get_startup_programs=True,
-            running_processes=True,
-            installed_software=True,
-        )
-        sysinfo.print()
+    sysinfo = WinScraper(system=True)
+    sysinfo.print()
+    HelpView.display()

@@ -2,18 +2,12 @@ from typing import Any, Dict
 
 import wmi
 
-from app.collector.base_collector import BaseCollector
-from app.collector.collection_category import CollectionCategory
+from app.collector.base_objs import BaseCollector
 
 
-class StartupProgramsCollector(BaseCollector):
+class StartupSoftwareCollector(BaseCollector):
     def __init__(self) -> None:
-        super().__init__(
-            name="Startup Software Collector",
-            description="Scan the windows registry for software which is executed at startup",
-            category=CollectionCategory.SOFTWARE,
-            cmd_arg="--startup-software",
-        )
+        super().__init__()
         self.c = wmi.WMI()
 
     def collect(self) -> Dict[Any, Any]:

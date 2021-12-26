@@ -2,18 +2,12 @@ from typing import Any, Dict
 
 import psutil
 
-from app.collector.base_collector import BaseCollector
-from app.collector.collection_category import CollectionCategory
+from app.collector.base_objs import BaseCollector
 
 
-class CPUCollector(BaseCollector):
+class CpuCollector(BaseCollector):
     def __init__(self) -> None:
-        super().__init__(
-            name="CPU Collector",
-            description="Gathers information about the CPU such as the number of cores and their utilization",
-            category=CollectionCategory.HARDWARE,
-            cmd_arg="--cpu",
-        )
+        super().__init__()
 
     def collect(self) -> Dict[Any, Any]:
         cpufreq = psutil.cpu_freq()

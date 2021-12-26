@@ -37,17 +37,15 @@ class TextFileSaver:
 
     @classmethod
     def save_as_text(cls, dictionary: Dict[Any, Any]) -> None:
-        TextFileSaver.save(module_name="Enumerator", f_prefix="enum", text=json.dumps(dictionary))
+        TextFileSaver.save(f_prefix="enum", text=json.dumps(dictionary))
 
     @classmethod
-    def save(cls, module_name: str, f_prefix: str, text: str | bytes) -> None:
+    def save(cls, f_prefix: str, text: str | bytes) -> None:
         if type(text) == type(bytes):
             try:
                 text = text.decode("utf-8")  # type: ignore
             except (UnicodeDecodeError, AttributeError):
                 logging.getLogger().error("Failed to decode bytes object")
                 sys.exit(0)
-        with open(
-            os.path.join(cls.BASE_DIR, module_name, f_prefix + "-" + DateTimeFormatter.current_dt_fileformatted()), "w+"
-        ) as f:
+        with open(os.path.join(cls.BASE_DIR, f_prefix + "-" + DateTimeFormatter.current_dt_fileformatted()), "w+") as f:
             f.write(text)  # type: ignore

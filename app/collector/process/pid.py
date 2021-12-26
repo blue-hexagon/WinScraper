@@ -2,18 +2,12 @@ from typing import Any, Dict
 
 import wmi
 
-from app.collector.base_collector import BaseCollector
-from app.collector.collection_category import CollectionCategory
+from app.collector.base_objs import BaseCollector
 
 
-class PIDCollector(BaseCollector):
+class PidCollector(BaseCollector):
     def __init__(self) -> None:
-        super().__init__(
-            name="Process ID Collector",
-            description="Collects all process names and IDs",
-            category=CollectionCategory.PROCESS,
-            cmd_arg="--pid",
-        )
+        super().__init__()
 
     def collect(self) -> Dict[Any, Any]:
         f = wmi.WMI()

@@ -2,19 +2,13 @@ from typing import Any, Dict
 
 import psutil
 
-from app.app_assister import ByteUnitConverter
-from app.collector.base_collector import BaseCollector
-from app.collector.collection_category import CollectionCategory
+from app.app_assistant import ByteUnitConverter
+from app.collector.base_objs import BaseCollector
 
 
-class DiskCollector(BaseCollector):
+class HarddriveCollector(BaseCollector):
     def __init__(self) -> None:
-        super().__init__(
-            name="Harddrive Collector",
-            description="Collects information about disks and partitions as well as their usage",
-            category=CollectionCategory.HARDWARE,
-            cmd_arg="--disk",
-        )
+        super().__init__()
 
     def collect(self) -> Dict[Any, Any]:
         disk_io = psutil.disk_io_counters()  # get IO statistics since boot

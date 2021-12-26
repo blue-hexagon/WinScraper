@@ -2,19 +2,13 @@ from typing import Any, Dict
 
 import psutil
 
-from app.app_assister import ByteUnitConverter
-from app.collector.base_collector import BaseCollector
-from app.collector.collection_category import CollectionCategory
+from app.app_assistant import ByteUnitConverter
+from app.collector.base_objs import BaseCollector
 
 
-class MemoryCollector(BaseCollector):
+class RamCollector(BaseCollector):
     def __init__(self) -> None:
-        super().__init__(
-            name="RAM Collector",
-            description="Collects information about the devices RAM consumption and resources",
-            category=CollectionCategory.HARDWARE,
-            cmd_arg="--ram",
-        )
+        super().__init__()
 
     def collect(self) -> Dict[Any, Any]:
         svmem = psutil.virtual_memory()

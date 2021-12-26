@@ -1,18 +1,12 @@
 import winreg
 from typing import Any, Dict
 
-from app.collector.base_collector import BaseCollector
-from app.collector.collection_category import CollectionCategory
+from app.collector.base_objs import BaseCollector
 
 
-class SoftwareRegeditLister(BaseCollector):
+class InstalledSoftwareCollector(BaseCollector):
     def __init__(self) -> None:
-        super().__init__(
-            name="Installed Software Collector",
-            description="Scan the windows registry for installed software",
-            category=CollectionCategory.SOFTWARE,
-            cmd_arg="--installed-software",
-        )
+        super().__init__()
 
     def collect(self) -> Dict[Any, Any]:
         access_keys = [

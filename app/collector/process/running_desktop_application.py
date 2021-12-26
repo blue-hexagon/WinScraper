@@ -1,17 +1,11 @@
 from pywinauto import Desktop
 
-from app.collector.base_collector import BaseCollector
-from app.collector.collection_category import CollectionCategory
+from app.collector.base_objs import BaseCollector
 
 
 class RunningDesktopApplicationCollector(BaseCollector):
     def __init__(self) -> None:
-        super().__init__(
-            name="Running Desktop Application Collector",
-            description="Collect the users opened application window titles",
-            category=CollectionCategory.PROCESS,
-            cmd_arg="--running-windows",
-        )
+        super().__init__()
 
 
 if __name__ == "__main__":

@@ -2,19 +2,13 @@ from typing import Any, Dict
 
 import psutil
 
-from app.app_assister import ByteUnitConverter
-from app.collector.base_collector import BaseCollector
-from app.collector.collection_category import CollectionCategory
+from app.app_assistant import ByteUnitConverter
+from app.collector.base_objs import BaseCollector
 
 
-class NetworkInterfaceCollector(BaseCollector):
+class InterfaceCollector(BaseCollector):
     def __init__(self) -> None:
-        super().__init__(
-            name="Network Interface Collector",
-            description="Collects information about the devices network adapters, assigned IP addresses, MAC addresses and more",
-            category=CollectionCategory.NETWORK,
-            cmd_arg="--net",
-        )
+        super().__init__()
 
     def collect(self) -> Dict[Any, Any]:
         if_addrs = psutil.net_if_addrs()  # Get all network interfaces (virtual and physical)

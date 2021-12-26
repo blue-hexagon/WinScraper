@@ -7,18 +7,12 @@ from typing import Any, Dict
 
 import wmi
 
-from app.collector.base_collector import BaseCollector
-from app.collector.collection_category import CollectionCategory
+from app.collector.base_objs import BaseCollector
 
 
 class SystemCollector(BaseCollector):
     def __init__(self) -> None:
-        super().__init__(
-            name="System Information Collector",
-            description="Collect device and system information",
-            category=CollectionCategory.UNCATEGORIZED,
-            cmd_arg="--system",
-        )
+        super().__init__()
         self.c = wmi.WMI()
         self.device = self.c.Win32_ComputerSystem()[0]
 
