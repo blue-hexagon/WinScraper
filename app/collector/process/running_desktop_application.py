@@ -1,6 +1,6 @@
 from pywinauto import Desktop
 
-from app.collector.base_objs import BaseCollector
+from app.collector.base_collector import BaseCollector
 
 
 class RunningDesktopApplicationCollector(BaseCollector):

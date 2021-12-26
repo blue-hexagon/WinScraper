@@ -1,5 +1,5 @@
-from app.collector.base_objs import BaseDescriptor
-from app.collector.collections_enum import EnumerationCategories
+from app.collector.base_descriptor import BaseDescriptor
+from app.collector.category_descriptor import EnumerationCategories
 
 
 class HarddriveDescriptor(BaseDescriptor):

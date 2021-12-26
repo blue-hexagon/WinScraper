@@ -1,4 +1,4 @@
-from app.collector.collections_enum import EnumerationCategories
+from app.collector.category_descriptor import EnumerationCategories
 from app.collector.hardware.cpu_descriptor import CpuDescriptor
 from app.collector.hardware.harddrive_descriptor import HarddriveDescriptor
 from app.collector.hardware.ram_descriptor import RamDescriptor

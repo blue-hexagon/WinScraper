@@ -2,7 +2,7 @@ import platform
 import subprocess
 from typing import Any, Dict
 
-from app.collector.base_objs import BaseCollector
+from app.collector.base_collector import BaseCollector
 
 
 class SsidCollector(BaseCollector):

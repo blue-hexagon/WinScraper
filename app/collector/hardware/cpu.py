@@ -2,7 +2,7 @@ from typing import Any, Dict
 
 import psutil
 
-from app.collector.base_objs import BaseCollector
+from app.collector.base_collector import BaseCollector
 
 
 class CpuCollector(BaseCollector):

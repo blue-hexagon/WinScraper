@@ -9,11 +9,3 @@ class BaseDescriptor:
         self.cmd_arg: str = cmd_arg
         self.parameter: str = parameter
         self.json_output: Dict[Any, Any] = {}
-
-
-class BaseCollector:
-    def __init__(self) -> None:
-        self.json_output: Dict[Any, Any] = {}
-
-    def collect(self) -> Dict[Any, Any]:
-        ...
