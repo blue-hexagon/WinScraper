@@ -1,29 +1,8 @@
-from app.collector.category_descriptor import EnumerationCategories
-from app.collector.hardware.cpu_descriptor import CpuDescriptor
-from app.collector.hardware.harddrive_descriptor import HarddriveDescriptor
-from app.collector.hardware.ram_descriptor import RamDescriptor
-from app.collector.network.interface_descriptor import InterfaceDescriptor
-from app.collector.network.ssid_descriptor import SsidDescriptor
-from app.collector.process.pid_descriptor import PidDescriptor
-from app.collector.software.installed_software_descriptor import (
-    InstalledSoftwareDescriptor,
-)
-from app.collector.software.startup_software_descriptor import StartupSoftwareDescriptor
-from app.collector.uncategorized.system_descriptor import SystemDescriptor
+from app.helper.descriptor_helper import Descriptors
 
 
 class HelpView:
-    all_descriptors = [
-        SystemDescriptor(),
-        CpuDescriptor(),
-        RamDescriptor(),
-        HarddriveDescriptor(),
-        InterfaceDescriptor(),
-        SsidDescriptor(),
-        StartupSoftwareDescriptor(),
-        InstalledSoftwareDescriptor(),
-        PidDescriptor(),
-    ]
+    descriptors = Descriptors
 
     @classmethod
     def display(cls) -> None:
@@ -41,19 +20,19 @@ class HelpView:
             f"{'#':<{id_field_len}} {'Collector':<{name_field_len}}{'Shell Long Option':<{cmd_field_len}}{'Instance Parameter':<{parameter_field_len}}"
         )
         print("-" * (id_field_len + name_field_len + cmd_field_len + parameter_field_len))
-        for idx, category in enumerate(EnumerationCategories, start=1):  # type: ignore
+        for idx, category in enumerate(cls.descriptors.get_all_categories(), start=1):
             id_field = f"{str(idx) + '.':<{id_field_len}}"
-            name_field = f"{category[0]:<{name_field_len}}"
-            cmd_field = f"{category[1]:<{cmd_field_len}}"
-            parameter_field = f"{category[2] + '=True':<{parameter_field_len}}"
+            name_field = f"{category.name:<{name_field_len}}"
+            cmd_field = f"{category.cmd_arg:<{cmd_field_len}}"
+            parameter_field = f"{category.parameter + '=True':<{parameter_field_len}}"
             # description_field = f"{category[3]}"
             print(f"{id_field} {name_field}{cmd_field}{parameter_field}")
 
             """For some reason enumerate doesn't reset it's (idy) counter
             when finishing the inner loop and starting over, so we do it the old way"""
             idy = 0
-            for module in cls.all_descriptors:  # O^2 but whatever ...
-                if module.category[0] == category[0]:
+            for module in cls.descriptors.get_all_descriptors():  # O^2 but whatever ...
+                if module.category.name == category.name:
                     idy += 1
                     _id_field = f"{str(idx) + '.' + str(idy):<{id_field_len}}"
                     _name_field = f"{module.name:<{name_field_len}}"

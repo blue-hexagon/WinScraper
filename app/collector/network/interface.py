@@ -2,8 +2,8 @@ from typing import Any, Dict
 
 import psutil
 
-from app.app_assistant import ByteUnitConverter
 from app.collector.base_collector import BaseCollector
+from app.helper.assistant import ByteUnitConverter
 
 
 class InterfaceCollector(BaseCollector):
