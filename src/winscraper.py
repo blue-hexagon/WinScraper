@@ -22,7 +22,15 @@ class WinScraper:
             ApplicationView(**kwargs).print()
 
 
-if __name__ == "__main__":
+def main() -> int:
     """Run ./main.py -h for information about commandline usage"""
     """ Run WinScraper() for information about library usage """
-    WinScraper()
+    try:
+        WinScraper()
+        return 0
+    except Exception:
+        return 1
+
+
+if __name__ == "__main__":
+    sys.exit(main())
