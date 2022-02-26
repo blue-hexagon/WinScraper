@@ -3,14 +3,17 @@ import logging
 import sys
 from typing import Any, Dict, List
 
+import yaml  # type: ignore
+
 from src.helper.assistant import TextFileSaver
 from src.helper.descriptor_helper import Descriptors
 from src.view.help import HelpView
 
 
 class ApplicationView:
-    def __init__(self, **kwargs: Dict[str, bool] | bool) -> None:
+    def __init__(self, formatting: str, **kwargs: Dict[str, bool] | bool) -> None:
         self.bucket: List[Any] = []
+        self.formatting = formatting.lower()  # 'JSON' or 'YAML'
         descriptors = Descriptors
 
         for descriptor in descriptors.get_all_descriptors():
@@ -34,4 +37,8 @@ class ApplicationView:
         TextFileSaver.save_as_text(*self.collection)
 
     def print(self) -> None:
-        print(json.dumps(self.collection, indent=2, ensure_ascii=True))
+        json_data = json.dumps(self.collection, indent=2, ensure_ascii=True)
+        if self.formatting == "json":
+            print(json_data)
+        elif self.formatting == "yaml":
+            print(yaml.dump(yaml.safe_load(json_data)))

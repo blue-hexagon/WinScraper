@@ -7,7 +7,7 @@ A CLI tool / library used for collecting information about devices running Windo
 pip install winscraper
 ```
 ```python
-git clone ...
+git clone https://github.com/blue-hexagon/WinScraper.git
 pip install -r requirements.txt
 ```
 # Using as a Library
@@ -16,7 +16,7 @@ View help by importing and running WinScraper
 
 ```python
 if __name__ == '__main__':
-    import src.winscraper
+    from src.main import WinScraper
 
     WinScraper()
 ```
@@ -25,7 +25,7 @@ Pass parameters shown in the help into the WinScraper object:
 
 ```python
 if __name__ == '__main__':
-    import src.winscraper
+    from src.main import WinScraper
 
     WinScraper(cpu=True, ssid=True, software=True)
 ```
@@ -36,7 +36,7 @@ View help by calling the app with the `-h` flag.
 
 *I will create an executeable for cli-usage soon.*
 ```cmd
-python main.py -h
+python winscraper.py -h
 ```
 ## Contributing
 For new features raise an issue and wait for permission
