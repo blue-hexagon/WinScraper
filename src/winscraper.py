@@ -26,7 +26,7 @@ class WinScraper:
         formatting="yaml"
     """
 
-    def __init__(self, formatting: str = "yaml", **kwargs: Dict[str, bool] | bool) -> None:
+    def __init__(self, formatting: str = "json", **kwargs: Dict[str, bool] | bool) -> None:
         if sys.stdin and sys.stdin.isatty():
             parser = argparse.ArgumentParser(
                 "Collect a plethora of information about this device and everything related to it."
@@ -38,4 +38,10 @@ class WinScraper:
             args = parser.parse_args()
             ApplicationView(formatting=formatting, **vars(args)).print()
         else:
+            for descriptor in Descriptors.all_descriptors:
+                if descriptor.parameter not in kwargs:
+                    kwargs.setdefault(descriptor.parameter, False)
+            for category in Descriptors.all_categories:
+                if category.parameter not in kwargs:
+                    kwargs.setdefault(category.parameter, False)
             ApplicationView(formatting=formatting, **kwargs).print()

@@ -15,7 +15,6 @@ class ApplicationView:
         self.bucket: List[Any] = []
         self.formatting = formatting.lower()  # 'JSON' or 'YAML'
         descriptors = Descriptors
-
         for descriptor in descriptors.get_all_descriptors():
             try:
                 if kwargs[descriptor.parameter] or kwargs[descriptor.category.parameter] or kwargs["all"]:

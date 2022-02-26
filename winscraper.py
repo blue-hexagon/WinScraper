@@ -1,4 +1,6 @@
 from src.winscraper import WinScraper
 
 if __name__ == "__main__":
-    WinScraper(all=True, formatting="json")
+    """Run ./main.py -h for information about commandline usage"""
+    """ Run WinScraper() for information about library usage """
+    WinScraper(interface=True, formatting="yaml")
