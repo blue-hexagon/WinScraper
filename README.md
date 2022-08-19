@@ -3,7 +3,7 @@
 A CLI tool / library used for collecting information about devices running Windows OS.
 
 # Getting Started
-```python
+```shell
 git clone https://github.com/blue-hexagon/WinScraper.git
 pip install -r requirements.txt
 ```
@@ -14,33 +14,31 @@ pip install -r requirements.txt
 2. Open the link in the terminal
 3. Click CONVERT .PY TO .EXE
 4. Run the application from a terminal: `./output/winscraper.exe`
+
 # Using as a Library
-
-View help by importing and running WinScraper
-
 ```python
 if __name__ == '__main__':
-    from src.main import WinScraper
-
-    WinScraper()
-```
-
-Pass parameters shown in the help into the WinScraper object:
-
-```python
-if __name__ == '__main__':
-    from src.main import WinScraper
+    from src.winscraper import WinScraper
 
     WinScraper(cpu=True, ssid=True, software=True)
 ```
 
-# Using as a CLI
+# Using as a CLI Tool
+```shell
+winscraper.exe  [-h] [--system] [--cpu] [--ram] [--harddrive] [--interface] [--ssid] [--startup-software] [--installed-software] [--pid] [--all] [--hardware] [--network] [--process] [--software] [--uncategorized]
+```
+# Help Views
+1. Run ./main.py -h for information about commandline usage
+2. Run WinScraper() (or ./main.py without any args)  for information about library usage
 
-View a detailed options list by calling the app with the `-h` flag.
+## Commandline Usage Help
 ```text
-(venv) PS C:\Users\username\Desktop\winscraper> python .\winscraper.py -h
-usage: Collect a plethora of information about this device and everything related to it. [-h] [--system] [--cpu] [--ram] [--harddrive] [--interface] [--ssid] [--startup-software] [--installed-software] [--pid] [--all] [--hardware] [--network]
-                                                                                         [--process] [--software] [--uncategorized]
+usage: Collect a plethora of information about this device and everything related to it.
+[-h] [--system] [--cpu] [--ram] [--harddrive]
+[--interface] [--ssid] [--startup-software]
+[--installed-software] [--pid] [--all]
+[--hardware] [--network] [--process]
+[--software] [--uncategorized]
 
 options:
   -h, --help            show this help message and exit
@@ -60,10 +58,8 @@ options:
   --software            All software modules
   --uncategorized       All uncategorized modules
 ```
-
-Or invoke the default HelpView: `python winscraper.py` which displays how CLI args maps to object arguments.
+## Library Usage Help
 ```text
-(venv) PS C:\Users\zbctobia\Desktop\winscraper> python .\winscraper.py
 #   Collector                     Shell Long Option     Instance Parameter
 ---------------------------------------------------------------------------
 1.  Everything                    --all                 all=True
